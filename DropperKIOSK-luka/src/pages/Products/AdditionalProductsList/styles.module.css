@@ -1,0 +1,10 @@
+.items {
+    padding-bottom: 22vw;
+}
+
+.noProductsFound {
+    font-size: 4vw;
+    color: var(--colorBlack);
+    text-align: center;
+    margin: 18vw auto 18vw auto;
+}

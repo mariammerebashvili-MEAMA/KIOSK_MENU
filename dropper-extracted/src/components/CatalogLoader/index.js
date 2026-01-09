@@ -1,0 +1,33 @@
+import React from "react";
+import { motion } from "framer-motion";
+// import Lottie from 'react-lottie';
+import animationData from '../../assets/lottie/loading';
+import styles from "./styles.module.css";
+
+const CatalogLoader = ({ label }) => {
+  // const options = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: animationData
+  // };
+
+  return (
+    <motion.div 
+      className={styles.loader} 
+      initial={{ opacity: 0, duration: 0, delay: 0 }} 
+      animate={{ 
+        opacity: 1,
+        duration: 0,
+        transition: { delay: 0, duration: 0 }
+      }} 
+      exit={{ opacity: 0, duration: 0, delay: 0 }}
+    >
+      <div className={styles.box}>
+        {/* <Lottie id="lottie-logo-animation" options={options} /> */}
+        <div className={styles.label}>{label ?? ""}</div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default CatalogLoader;

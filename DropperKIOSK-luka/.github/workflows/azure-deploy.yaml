@@ -1,0 +1,60 @@
+name: Build and deploy container app to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - luka
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to ACR
+        uses: docker/login-action@v2
+        with:
+          registry: meamacontainersprod.azurecr.io
+          username: ${{ secrets.AZURE_ACR_USERNAME }}
+          password: ${{ secrets.AZURE_ACR_PASSWORD }}
+
+      - name: Define image tag
+        id: vars
+        run: echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: meamacontainersprod.azurecr.io/dropperkiosk-luka:${{ env.TAG }}
+
+      # Checkout devops repo (main branch)
+      - name: Checkout devops repo
+        uses: actions/checkout@v2
+        with:
+          repository: Meama/devops-meama
+          ref: main
+          token: ${{ secrets.DEVOPS_REPO_PAT }}
+          path: devops-meama
+
+      # Update values.yaml with new tag
+      - name: Update Helm values.yaml
+        run: |
+          sed -i "s|tag: .*|tag: \"${TAG}\"|g" devops-meama/deployment/dropperkiosk/luka/values.yaml
+
+      # Commit and push the change directly to main
+      - name: Commit and push changes
+        run: |
+          cd devops-meama
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add deployment/dropperkiosk/luka/values.yaml
+          git commit -m "Update dropperkiosk-luka image tag to ${TAG}"
+          git push origin main

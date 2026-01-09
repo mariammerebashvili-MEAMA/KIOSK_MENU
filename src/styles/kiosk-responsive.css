@@ -1,0 +1,109 @@
+/* Kiosk Responsive Styles for 1080x1920 */
+
+/* Base styles - Mobile First (320px+) */
+@media (min-width: 320px) {
+  .kiosk-wrapper {
+    width: 100%;
+    min-height: 100vh;
+  }
+}
+
+/* Small devices (640px+) */
+@media (min-width: 640px) {
+  .kiosk-wrapper {
+    max-width: 640px;
+  }
+}
+
+/* Medium devices (768px+) */
+@media (min-width: 768px) {
+  .kiosk-wrapper {
+    max-width: 768px;
+  }
+}
+
+/* Large devices / Kiosk displays (1024px+) */
+@media (min-width: 1024px) {
+  .kiosk-wrapper {
+    max-width: 1080px;
+  }
+}
+
+/* Full Kiosk resolution (1080x1920) */
+@media (min-width: 1080px) and (min-height: 1920px) {
+  .kiosk-wrapper {
+    width: 1080px;
+    height: 1920px;
+    margin: 0 auto;
+  }
+  
+  /* Optimize touch targets for large displays */
+  button,
+  a,
+  .touch-element {
+    min-width: 52px;
+    min-height: 52px;
+  }
+}
+
+/* Portrait orientation (PRIMARY for kiosk) */
+@media (orientation: portrait) {
+  .kiosk-wrapper {
+    max-width: 1080px;
+    width: 100%;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+  }
+  
+  /* Ensure proper portrait layout */
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Optimize for portrait touch */
+  button, a {
+    min-height: 44px;
+  }
+}
+
+/* Landscape orientation - Show warning */
+@media (orientation: landscape) {
+  .kiosk-wrapper {
+    display: none;
+  }
+  
+  /* Hide main content in landscape */
+  #app > *:not(#landscape-warning) {
+    display: none !important;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .kiosk-wrapper img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Accessibility - Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles (if needed) */
+@media print {
+  .kiosk-wrapper {
+    width: 100%;
+    height: auto;
+  }
+}
+

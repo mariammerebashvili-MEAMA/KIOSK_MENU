@@ -1,0 +1,39 @@
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999999;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  position: relative;
+  top: -10vw;
+  width: 21vw;
+  height: 21vw;
+  background-color: var(--colorBlack);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box > div {
+  transform: scale(1.5);
+}
+
+.box .label {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 3.2vw;
+  color: var(--colorBlack);
+  font-size: 3.2vw;
+  white-space: nowrap;
+}

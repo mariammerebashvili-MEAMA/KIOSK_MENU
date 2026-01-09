@@ -1,0 +1,237 @@
+.exitBtn {
+  position: absolute;
+  top: 6.6vw;
+  right: 6vw;
+  width: 3.666666vw;
+  z-index: 2;
+}
+
+.exitBtn img {
+  display: block;
+  width: 100%;
+}
+
+.exitBtn:before {
+  content: "";
+  position: absolute;
+  top: -4vw;
+  bottom: -4vw;
+  left: -4vw;
+  right: -4vw;
+}
+
+.topBox {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+:global(.is-web-view) .topBox {
+  margin-top: 12vw;
+}
+
+.title {
+  font-size: 6vw;
+  color: var(--colorBlack);
+  margin-top: 1vw;
+  text-align: center;
+}
+
+.text {
+  font-size: 3.2vw;
+  color: var(--colorBlack);
+  margin-top: 3vw;
+  text-align: center;
+  max-width: 55vw;
+}
+
+.privacyPolicyButton {
+  margin-top: 4.666666vw;
+}
+
+.numberBox {
+  position: relative;
+  height: 12vw;
+  margin-top: 5vw;
+  border: 1px solid var(--colorGrayBorder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.select {
+  position: relative;
+  width: 24vw;
+  min-width: 24vw;
+}
+
+.select * {
+  outline: none !important;
+}
+
+.select:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0vw;
+  bottom: 0vw;
+  width: 1px;
+  background-color: var(--colorGrayBorder);
+}
+
+.select :global(.index-select__control) {
+  border: 0;
+  background-color: transparent;
+  border-radius: 0;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.select :global(.index-select__value-container) {
+  padding: 0;
+  margin: 0;
+}
+
+.select :global(.index-select__input-container) {
+  padding: 0;
+  margin: 0;
+}
+
+.select :global(.index-select__input-container:after) {
+  display: none;
+}
+
+.select :global(.index-select__single-value) {
+  font-size: 3.4vw;
+  color: var(--colorBlack);
+  padding: 0 0 0 3vw;
+  margin: 0;
+}
+
+.select :global(.index-select__indicators) {
+  margin-right: 2vw;
+}
+
+.select :global(.index-select__indicator) {
+  padding: 0;
+  margin: 0;
+}
+
+.select :global(.index-select__indicator-separator) {
+  display: none;
+}
+
+.select :global(.index-select__indicator > svg) {
+  fill: var(--colorBlack);
+  width: 6.6vw;
+  height: 6.6vw;
+  stroke-width: 1px;
+  stroke: #fff;
+  transition: transform 0.2s;
+}
+
+.select
+  :global(.index-select__control--menu-is-open .index-select__indicator > svg) {
+  transform: rotate(180deg);
+}
+
+.select :global(.index-select__menu) {
+  background-color: var(--colorWhite);
+  border-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 1px 4px 15px 0px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2.9vw;
+  margin-top: 2.9vw;
+  border: 1px solid var(--colorGrayBorder);
+}
+
+.select :global(.index-select__menu-list) {
+  padding: 0;
+}
+
+.select :global(.index-select__option) {
+  font-size: 3.4vw;
+  color: var(--colorBlack);
+  padding: 3vw 3vw 3vw 3vw;
+}
+
+.select :global(.index-select__option--is-selected),
+.select :global(.index-select__option--is-selected:active) {
+  background-color: #f3f3f3;
+}
+
+.phoneNumbers {
+  width: 50vw;
+  min-width: 40vw;
+  font-size: 3.4vw;
+  color: var(--colorBlack);
+  padding: 0 4vw;
+}
+
+.agreeCheckbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100vw;
+  width: 90.8vw;
+  margin-top: 5vw;
+  font-size: 2.8vw;
+  color: var(--colorBlack);
+}
+
+.agreeCheckbox img {
+  width: 5vw;
+  min-width: 5vw;
+  margin-right: 3vw;
+}
+
+.button {
+  margin-top: 5vw;
+}
+
+.keyboardBox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.keyboardItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6.6vh;
+  width: 33.333333vw;
+  border: 1px solid var(--colorGrayBorder);
+  background-color: var(--colorWhite);
+  border-bottom: 0;
+  font-size: 4vw;
+  color: var(--colorBlack);
+  transition: background-color 0s, color 0s;
+}
+
+.keyboardItem:nth-child(3n + 1) {
+  border-left: 0;
+  border-right: 0;
+}
+
+.keyboardItem:nth-child(3n + 3) {
+  border-right: 0;
+  border-left: 0;
+}
+
+.keyboardItem:active {
+  background-color: #ccc;
+}
+
+.keyboardItem.disabled {
+  pointer-events: none !important;
+}
+
+.keyboardRemoveIcon {
+  width: 5.666666vw;
+}

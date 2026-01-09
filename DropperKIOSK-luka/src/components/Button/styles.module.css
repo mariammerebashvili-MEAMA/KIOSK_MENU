@@ -1,0 +1,102 @@
+.buttonBox {
+  position: relative;
+}
+
+.button {
+  position: relative;
+  height: 12vw;
+  min-width: 26vw;
+  line-height: 11.6vw;
+  font-size: 3.4vw;
+  padding: 0 8vw;
+  border-radius: 6vw;
+  border: 1px solid var(--colorButtonBorder);
+  background-color: var(--colorButtonBg);
+  color: var(--colorButton);
+  box-shadow: none;
+  text-align: center;
+  transition: opacity var(--trDur);
+}
+
+.button:global(.filled) {
+  border: 1px solid var(--colorButtonFilledBorder);
+  background-color: var(--colorButtonFilledBg);
+  color: var(--colorButtonFilled);
+}
+
+.button:global(.transparent) {
+  border: 1px solid var(--colorButtonTransparentBorder);
+  background-color: var(--colorButtonTransparentBg);
+  color: var(--colorButtonTransparent);
+}
+
+.button:global(.small) {
+  height: 6.6vw;
+  min-width: 20vw;
+  line-height: 6.6vw;
+  padding: 0 4vw;
+  font-size: 2.8vw;
+}
+
+.button:global(.no-paddings) {
+  padding: 0;
+}
+
+.icon {
+  position: relative;
+  bottom: 5px;
+  max-width: 5.4vw;
+  max-height: 5.4vw;
+  margin-right: 2vw;
+}
+
+.button.disabled {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+.button.loading {
+  opacity: 1 !important;
+  pointer-events: none !important;
+  color: transparent !important;
+}
+
+.bounce {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bounce > div {
+  width: 1.3vw;
+  height: 1.3vw;
+  margin: 0 0.4vw;
+  background-color: var(--colorWhite);
+  border-radius: 50%;
+  display: inline-block;
+  animation: sk-bouncedelay 1.2s infinite ease-in-out both;
+}
+
+.bounce .bounce1 {
+  animation-delay: -0.32s;
+}
+
+.bounce .bounce2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+  }
+  40% {
+    transform: scale(1);
+  }
+}

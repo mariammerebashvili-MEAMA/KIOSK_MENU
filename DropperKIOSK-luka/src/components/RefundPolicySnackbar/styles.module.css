@@ -1,0 +1,73 @@
+.snackbar {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 103, 103, 0.47);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 119, 119, 0.4);
+  margin: 2px 0 8px 0;
+  gap: 12px;
+  position: fixed;
+  bottom: 12%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 400px;
+  z-index: 1000;
+}
+
+.alertIcon {
+  width: auto;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.alertIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.alertText {
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: black;
+  font-weight: 700;
+}
+
+.acknowledgeButton {
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.acknowledgeButton:hover {
+  transform: scale(1.1);
+}
+
+.acknowledgeButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.checkCircle {
+  width: 40px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.acknowledged img {
+  /* PNG should display as-is without filters */
+}

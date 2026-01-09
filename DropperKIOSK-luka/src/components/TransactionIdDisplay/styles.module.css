@@ -1,0 +1,36 @@
+.transactionIdContainer {
+  position: relative;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  max-width: 180px;
+  width: 100%;
+}
+
+.transactionIdContent {
+  background:black;
+  border-radius: 12px;
+  padding: 10px 10px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.transactionIdLabel {
+  font-size: 10px;
+  color: white;
+  opacity: 0.8;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.transactionIdValue {
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 1px;
+  text-align: center;
+  white-space: nowrap;
+}

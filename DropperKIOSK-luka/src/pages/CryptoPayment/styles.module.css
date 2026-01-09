@@ -1,0 +1,14 @@
+.iframeBox {
+  height: calc((var(--vh, 1vh) * 100) - 17vw);
+  margin-left: -6vw;
+  margin-right: -6vw;
+}
+
+:global(.is-web-view) .iframeBox {
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
