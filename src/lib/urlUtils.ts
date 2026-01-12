@@ -1,6 +1,4 @@
-/**
- * Parse URL query parameters
- */
+
 export const getQueryParam = (param: string): string | null => {
   if (typeof window === 'undefined') return null;
   
@@ -8,9 +6,7 @@ export const getQueryParam = (param: string): string | null => {
   return urlParams.get(param);
 };
 
-/**
- * Get kiosk_id from URL query parameters (legacy support)
- */
+
 export const getKioskId = (): string | null => {
   return getQueryParam('kiosk_id');
 };

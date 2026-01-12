@@ -14,6 +14,7 @@ export interface Product {
   /**
    * Dropper (legacy) fields - optional so existing UI keeps working.
    */
+  media?: Array<{ url?: string }>;
   unitPrice?: number;
   imageUrl?: string;
   availableQuantity?: number;

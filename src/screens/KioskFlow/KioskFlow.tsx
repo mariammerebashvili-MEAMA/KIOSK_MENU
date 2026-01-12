@@ -97,6 +97,21 @@ export const KioskFlow = () => {
   );
 };
 
+function getProductImage(product: Product): string {
+  return (
+    product.image ||
+    product.media?.[0]?.url ||
+    product.imageUrl ||
+    "/cup.png"
+  );
+}
+
+function toCssUrl(rawUrl: string): string {
+  // CSS url(...) breaks on spaces unless quoted/encoded.
+  const encoded = encodeURI(rawUrl);
+  return `url("${encoded}")`;
+}
+
 function CapsulesGrid({ products }: { products: Product[] }) {
   return (
     <Observer
@@ -108,7 +123,7 @@ function CapsulesGrid({ products }: { products: Product[] }) {
                 <div className="flex-1 flex items-center justify-center p-6 sm:p-8 md:p-10">
                   <div
                     className="w-full h-full max-h-[180px] sm:max-h-[220px] md:max-h-[260px] lg:max-h-[300px] bg-contain bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url(${product.imageUrl || product.image})` }}
+                    style={{ backgroundImage: toCssUrl(getProductImage(product)) }}
                   />
                 </div>
 
@@ -158,7 +173,7 @@ function ExtrasList({ products }: { products: Product[] }) {
             <div key={p.id} className="bg-white rounded-[20px] p-4 sm:p-5 md:p-6 shadow-md border border-gray-100">
               <div className="flex items-center gap-4 sm:gap-5 md:gap-6">
                 <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-50 rounded-xl flex items-center justify-center overflow-hidden">
-                  <img src={p.imageUrl || p.image || "/cup.png"} alt={p.name} className="w-full h-full object-contain p-2" />
+                  <img src={getProductImage(p)} alt={p.name} className="w-full h-full object-contain p-2" />
                 </div>
 
                 <div className="flex-1">

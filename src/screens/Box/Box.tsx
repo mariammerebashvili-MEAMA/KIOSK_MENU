@@ -185,7 +185,9 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
                   <div className="flex-1 flex items-center justify-center p-6 sm:p-8 md:p-10">
                     <div
                       className="w-full h-full max-h-[180px] sm:max-h-[220px] md:max-h-[260px] lg:max-h-[300px] bg-contain bg-center bg-no-repeat"
-                      style={{ backgroundImage: `url(${product.image})` }}
+                      style={{
+                        backgroundImage: `url("${encodeURI(product.image || product.media?.[0]?.url || "/cup.png")}")`,
+                      }}
                     />
                   </div>
 
