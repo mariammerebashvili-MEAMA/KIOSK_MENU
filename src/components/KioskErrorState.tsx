@@ -37,12 +37,12 @@ export const KioskErrorState = ({
         </div>
 
         {/* Error Title */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 [font-family:'Inter',Helvetica]">
+        <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-4 [font-family:'Meama LGV',Helvetica]">
           {title}
         </h1>
 
         {/* Error Message */}
-        <p className="text-base sm:text-lg text-gray-600 mb-8 [font-family:'Inter',Helvetica] leading-relaxed">
+        <p className="text-base sm:text-lg text-gray-600 mb-8 [font-family:'Meama Sans LGV',Helvetica] leading-relaxed">
           {message}
         </p>
 
@@ -58,7 +58,7 @@ export const KioskErrorState = ({
 
         {/* Support Info */}
         <div className="mt-8 pt-6 border-t border-gray-200">
-          <p className="text-sm text-gray-500 [font-family:'Inter',Helvetica]">
+          <p className="text-sm text-gray-500 [font-family:'Meama Sans LGV',Helvetica]">
             Need help? Contact support
           </p>
         </div>

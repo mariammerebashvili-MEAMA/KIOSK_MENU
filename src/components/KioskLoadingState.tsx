@@ -8,10 +8,10 @@ export const KioskLoadingState = () => {
         </div>
 
         {/* Loading Text */}
-        <h2 className="text-xl sm:text-2xl font-medium text-gray-700 [font-family:'Inter',Helvetica]">
+        <h2 className="text-xl sm:text-2xl font-normal text-gray-700 [font-family:'Meama Sans LGV',Helvetica]">
           Loading Kiosk...
         </h2>
-        <p className="text-sm sm:text-base text-gray-500 mt-2 [font-family:'Inter',Helvetica]">
+        <p className="text-sm sm:text-base text-gray-500 mt-2 [font-family:'Meama Sans LGV',Helvetica]">
           Please wait while we prepare your menu
         </p>
       </div>

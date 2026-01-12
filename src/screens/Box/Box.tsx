@@ -262,7 +262,7 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
 
                     {/* Cup Info */}
                     <div className="flex-1">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 [font-family:'Inter',Helvetica] mb-1">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-gray-900 [font-family:'Meama LGV',Helvetica] mb-1">
                         Multi Capsule Cup
                       </h3>
                       <p className="text-sm sm:text-base text-gray-500 mb-2">Multi Capsule</p>
@@ -323,7 +323,7 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
 
                         {/* Cup Info */}
                         <div className="flex-1">
-                          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 [font-family:'Inter',Helvetica] mb-1">
+                          <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-gray-900 [font-family:'Meama LGV',Helvetica] mb-1">
                             {cupName}
                           </h3>
                           <p className="text-sm sm:text-base text-gray-500 mb-2">{cupDescription}</p>
@@ -379,7 +379,7 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
 
                     {/* Sugar Info */}
                     <div className="flex-1">
-                      <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 [font-family:'Inter',Helvetica] mb-1">
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-medium text-gray-900 [font-family:'Meama LGV',Helvetica] mb-1">
                         Sugar
                       </h3>
                       <p className="text-sm sm:text-base text-gray-500 mb-2">Sugar Stick</p>
@@ -475,7 +475,7 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
             </div>
 
             {/* Question Text */}
-            <h2 className="text-center text-gray-800 text-xl sm:text-2xl font-medium mb-8 [font-family:'Inter',Helvetica]">
+            <h2 className="text-center text-gray-800 text-xl sm:text-2xl font-normal mb-8 [font-family:'Meama Sans LGV',Helvetica]">
               Would you like to add cup or sugar?
             </h2>
 

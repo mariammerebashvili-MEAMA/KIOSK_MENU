@@ -1,5 +1,5 @@
 import { Observer } from "mobx-react-lite";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useKiosk } from "../../contexts/KioskContext";
 import { kioskSelectionStore } from "../../stores/KioskSelectionStore";
 import { Button } from "../../components/ui/button";
@@ -7,12 +7,13 @@ import { Card, CardContent } from "../../components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs";
 import type { Product } from "../../lib/kioskApi";
 
-type Tab = "capsules" | "extras" | "payment";
+type Tab = "capsules" | "extras";
 
 export const KioskFlow = () => {
   const { catalog, products, additionalProducts, qrCode } = useKiosk();
   const [activeTab, setActiveTab] = useState<Tab>("capsules");
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "crypto">("card");
+  // Payment part disabled for now (per request)
+  // const [paymentMethod, setPaymentMethod] = useState<"card" | "crypto">("card");
 
   useEffect(() => {
     if (catalog && qrCode) kioskSelectionStore.loadFromCatalog(catalog, qrCode);
@@ -23,62 +24,67 @@ export const KioskFlow = () => {
   const next = () => {
     if (activeTab === "capsules") {
       if (hasAdditional && kioskSelectionStore.totalSelectedProductQty > 0) setActiveTab("extras");
-      else setActiveTab("payment");
+      else {
+        // Payment part disabled for now (per request)
+        console.log("Selection complete:", {
+          selectedProducts: kioskSelectionStore.selectedData,
+          total: kioskSelectionStore.totalPrice.toString(),
+        });
+        alert("Selection complete (payment disabled).");
+      }
     } else if (activeTab === "extras") {
-      setActiveTab("payment");
-    } else {
-      // Stub: order creation will be wired next (card + crypto)
-      console.log("Creating order with:", {
-        paymentMethod,
+      // Payment part disabled for now (per request)
+      console.log("Selection complete:", {
         selectedProducts: kioskSelectionStore.selectedData,
         total: kioskSelectionStore.totalPrice.toString(),
       });
-      alert("Order creation wiring is next (logic already extracted).");
+      alert("Selection complete (payment disabled).");
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-white portrait:aspect-[9/16] overflow-x-hidden">
-      <main className="flex-1 flex flex-col w-full">
+    <div className="flex flex-col h-screen w-full bg-white overflow-hidden">
+      <main className="flex-1 min-h-0 flex flex-col w-full overflow-hidden">
         <div className="w-full flex justify-center p-4 sm:p-5 md:p-6">
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as Tab)} className="w-auto">
             <TabsList className="inline-flex items-center gap-1 bg-[#f2f2f2] rounded-[50px] h-auto p-1">
               <TabsTrigger
                 value="capsules"
-                className="w-[160px] sm:w-[200px] md:w-[240px] h-[56px] sm:h-[64px] md:h-[72px] px-6 py-4 rounded-[50px] data-[state=active]:bg-black data-[state=active]:text-white data-[state=inactive]:bg-[#f2f2f2] data-[state=inactive]:text-black [font-family:'Inter',Helvetica] font-normal text-base sm:text-lg md:text-xl transition-all"
+                className="w-[160px] sm:w-[200px] md:w-[240px] h-[56px] sm:h-[64px] md:h-[72px] px-6 py-4 rounded-[50px] data-[state=active]:bg-black data-[state=active]:text-white data-[state=inactive]:bg-[#f2f2f2] data-[state=inactive]:text-black [font-family:'Meama LGV',Helvetica] font-medium text-base sm:text-lg md:text-xl transition-all"
               >
                 Capsules
               </TabsTrigger>
               <TabsTrigger
                 value="extras"
-                className="w-[160px] sm:w-[200px] md:w-[240px] h-[56px] sm:h-[64px] md:h-[72px] px-6 py-4 rounded-[50px] data-[state=active]:bg-black data-[state=active]:text-white data-[state=inactive]:bg-[#f2f2f2] data-[state=inactive]:text-black [font-family:'Inter',Helvetica] font-normal text-base sm:text-lg md:text-xl transition-all"
+                className="w-[160px] sm:w-[200px] md:w-[240px] h-[56px] sm:h-[64px] md:h-[72px] px-6 py-4 rounded-[50px] data-[state=active]:bg-black data-[state=active]:text-white data-[state=inactive]:bg-[#f2f2f2] data-[state=inactive]:text-black [font-family:'Meama LGV',Helvetica] font-medium text-base sm:text-lg md:text-xl transition-all"
               >
                 Sugar & Cup
               </TabsTrigger>
-              <TabsTrigger
-                value="payment"
-                className="w-[160px] sm:w-[200px] md:w-[240px] h-[56px] sm:h-[64px] md:h-[72px] px-6 py-4 rounded-[50px] data-[state=active]:bg-black data-[state=active]:text-white data-[state=inactive]:bg-[#f2f2f2] data-[state=inactive]:text-black [font-family:'Inter',Helvetica] font-normal text-base sm:text-lg md:text-xl transition-all"
-              >
-                Payment
-              </TabsTrigger>
+              {/*
+                Payment part disabled for now (per request)
+                <TabsTrigger
+                  value="payment"
+                  className="w-[160px] sm:w-[200px] md:w-[240px] h-[56px] sm:h-[64px] md:h-[72px] px-6 py-4 rounded-[50px] data-[state=active]:bg-black data-[state=active]:text-white data-[state=inactive]:bg-[#f2f2f2] data-[state=inactive]:text-black [font-family:'Meama LGV',Helvetica] font-medium text-base sm:text-lg md:text-xl transition-all"
+                >
+                  Payment
+                </TabsTrigger>
+              */}
             </TabsList>
           </Tabs>
         </div>
 
-        <section className="w-screen py-6">
-          <div className="w-full max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+        <section className="w-full flex-1 min-h-0 overflow-hidden py-4 sm:py-5 md:py-6">
+          <div className="w-full h-full max-w-[1080px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden">
             {activeTab === "capsules" ? (
               <CapsulesGrid products={products} />
             ) : activeTab === "extras" ? (
               <ExtrasList products={additionalProducts} />
-            ) : (
-              <PaymentMethod paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod} />
-            )}
+            ) : null /* Payment part disabled */}
           </div>
         </section>
       </main>
 
-      <footer className="w-screen sticky bottom-0 bg-white border-t border-gray-100 p-4 sm:p-5">
+      <footer className="flex-none w-full bg-white border-t border-gray-100 p-3 sm:p-4 md:p-5 shadow-[0_-8px_24px_rgba(0,0,0,0.06)]">
         <div className="max-w-[1080px] mx-auto flex items-center justify-between gap-4">
           <Observer
             render={() => (
@@ -88,8 +94,8 @@ export const KioskFlow = () => {
               </div>
             )}
           />
-          <Button className="h-[56px] px-8 rounded-[18px]" onClick={next}>
-            {activeTab === "payment" ? "Buy" : "Next"}
+          <Button className="w-[112px] h-[49px] rounded-[38px] px-0" onClick={next}>
+            Next
           </Button>
         </div>
       </footer>
@@ -113,40 +119,93 @@ function toCssUrl(rawUrl: string): string {
 }
 
 function CapsulesGrid({ products }: { products: Product[] }) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [layout, setLayout] = useState({ cols: 2, rows: 2 });
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const compute = () => {
+      const items = kioskSelectionStore.productsList.length || 1;
+      const rect = el.getBoundingClientRect();
+      const w = Math.max(1, rect.width);
+      const h = Math.max(1, rect.height);
+
+      // Heuristic: choose cols near sqrt(n * w/h) to keep cells close to square.
+      const rawCols = Math.ceil(Math.sqrt((items * w) / h));
+      const cols = Math.min(6, Math.max(2, rawCols));
+      const rows = Math.ceil(items / cols);
+      setLayout({ cols, rows });
+    };
+
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <Observer
       render={() => (
-        <div className="grid grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-14">
+        <div ref={containerRef} className="h-full w-full overflow-hidden">
+          <div
+            className="grid h-full w-full"
+            style={{
+              gridTemplateColumns: `repeat(${layout.cols}, minmax(0, 1fr))`,
+              gridTemplateRows: `repeat(${layout.rows}, minmax(0, 1fr))`,
+              gap: "clamp(8px, 1.2vh, 16px)",
+            }}
+          >
           {kioskSelectionStore.productsList.map((product) => (
-            <Card key={product.id} className="w-full aspect-[3/4] bg-webdroppermeamagealabaster rounded-[16px] sm:rounded-[18px] md:rounded-[20px] border-0 shadow-lg hover:shadow-xl transition-shadow">
+            <Card
+              key={product.id}
+              className="w-full h-full bg-webdroppermeamagealabaster rounded-[16px] sm:rounded-[18px] md:rounded-[20px] border-0 shadow-lg hover:shadow-xl transition-shadow"
+            >
               <CardContent className="p-0 relative h-full flex flex-col">
-                <div className="flex-1 flex items-center justify-center p-6 sm:p-8 md:p-10">
+                <div className="flex-1 min-h-0 flex items-center justify-center p-[clamp(8px,1.4vh,18px)]">
                   <div
-                    className="w-full h-full max-h-[180px] sm:max-h-[220px] md:max-h-[260px] lg:max-h-[300px] bg-contain bg-center bg-no-repeat"
-                    style={{ backgroundImage: toCssUrl(getProductImage(product)) }}
+                    className="w-full h-full bg-contain bg-center bg-no-repeat"
+                    style={{
+                      backgroundImage: toCssUrl(getProductImage(product)),
+                      // EU capsule images are visually larger; size responsively
+                      backgroundSize:
+                        product.productClassification === "EUROPEAN_CAPSULE"
+                          ? "clamp(70px, 8vh, 90px) clamp(70px, 8vh, 90px)"
+                          : "contain",
+                    }}
                   />
                 </div>
 
-                <div className="flex flex-col items-center gap-2 pb-6 sm:pb-8 md:pb-10">
-                  <div className="[font-family:'ABeeZee',Helvetica] text-black text-lg sm:text-xl md:text-2xl font-normal tracking-[0] text-center">{product.name}</div>
-                  <div className="font-webdropper-meama-ge-meama-sans-LGV-regular-11-9 text-[#00000080] text-sm sm:text-base md:text-lg text-center">{product.type}</div>
-                  <div className="[font-family:'Albert_Sans',Helvetica] font-semibold text-black text-lg sm:text-xl md:text-2xl tracking-[0] text-center mt-1">
+                <div className="flex-none flex flex-col items-center gap-[0.4vh] pb-[clamp(8px,1.2vh,16px)] px-[clamp(8px,1vw,16px)]">
+                  <div className="[font-family:'Meama LGV',Helvetica] text-black text-[clamp(12px,1.8vh,22px)] font-medium tracking-[0] text-center leading-tight line-clamp-2">
+                    {product.name}
+                  </div>
+                  <div className="text-[#00000080] text-[clamp(10px,1.4vh,18px)] text-center leading-tight line-clamp-1">
+                    {product.type}
+                  </div>
+                  <div className="[font-family:'Meama Sans LGV',Helvetica] font-medium text-black text-[clamp(12px,1.8vh,22px)] tracking-[0] text-center mt-[0.2vh]">
                     {product.unitPrice != null ? `${product.unitPrice}₾` : product.price}
                   </div>
 
-                  <div className="inline-flex items-center gap-4 sm:gap-5 md:gap-6 mt-3 sm:mt-4">
-                    <Button variant="ghost" size="icon" className="w-[36px] h-[36px] sm:w-[44px] sm:h-[44px] md:w-[52px] md:h-[52px] p-0 hover:bg-transparent hover:scale-110 transition-transform" onClick={() => kioskSelectionStore.decProductQty("CAPSULE", product.id)}>
+                  <div className="inline-flex items-center gap-[clamp(8px,1vw,16px)] mt-[clamp(6px,0.8vh,12px)]">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="p-0 hover:bg-transparent hover:scale-110 transition-transform w-[clamp(28px,3.4vh,46px)] h-[clamp(28px,3.4vh,46px)]"
+                      onClick={() => kioskSelectionStore.decProductQty("CAPSULE", product.id)}
+                    >
                       <img className="w-full h-full" alt="Decrease" src="/frame-1321316898.svg" />
                     </Button>
 
-                    <div className="w-10 sm:w-12 md:w-14 h-8 sm:h-10 md:h-12 flex items-center justify-center [font-family:'Albert_Sans',Helvetica] font-bold text-black text-xl sm:text-2xl md:text-3xl">
+                    <div className="w-[clamp(34px,4.5vh,60px)] h-[clamp(26px,3.6vh,44px)] flex items-center justify-center [font-family:'Meama Sans LGV',Helvetica] font-medium text-black text-[clamp(14px,2.2vh,28px)]">
                       {product.selectedQty}
                     </div>
 
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="w-[36px] h-[36px] sm:w-[44px] sm:h-[44px] md:w-[52px] md:h-[52px] p-0 hover:bg-transparent hover:scale-110 transition-transform disabled:opacity-40 disabled:hover:scale-100"
+                      className="p-0 hover:bg-transparent hover:scale-110 transition-transform disabled:opacity-40 disabled:hover:scale-100 w-[clamp(28px,3.4vh,46px)] h-[clamp(28px,3.4vh,46px)]"
                       disabled={product.disableInc || product.outOfStock}
                       onClick={() => kioskSelectionStore.incProductQty("CAPSULE", product.id)}
                     >
@@ -158,6 +217,7 @@ function CapsulesGrid({ products }: { products: Product[] }) {
             </Card>
           ))}
           {products.length === 0 && <div className="text-gray-500">No products</div>}
+          </div>
         </div>
       )}
     />
@@ -165,20 +225,50 @@ function CapsulesGrid({ products }: { products: Product[] }) {
 }
 
 function ExtrasList({ products }: { products: Product[] }) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [cols, setCols] = useState(1);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const compute = () => {
+      // Force single-column layout so "Cups" and "Sugar" quantity bars
+      // are stacked under each other with a fixed gap.
+      setCols(1);
+    };
+
+    compute();
+    const ro = new ResizeObserver(compute);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <Observer
       render={() => (
-        <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
+        <div ref={containerRef} className="h-full w-full overflow-hidden">
+          <div
+            className="grid h-full w-full"
+            style={{
+              gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+              // Use auto rows so items don't stretch and create huge "visual gaps"
+              // when the container has extra vertical space.
+              gridAutoRows: "max-content",
+              alignContent: "start",
+              rowGap: "15px",
+            }}
+          >
           {kioskSelectionStore.additionalProductsList.map((p) => (
-            <div key={p.id} className="bg-white rounded-[20px] p-4 sm:p-5 md:p-6 shadow-md border border-gray-100">
-              <div className="flex items-center gap-4 sm:gap-5 md:gap-6">
+            <div key={p.id} className="bg-white rounded-[20px] p-[clamp(10px,1.6vh,18px)] shadow-md border border-gray-100 h-full overflow-hidden">
+              <div className="flex items-center gap-[clamp(10px,1.6vh,18px)] h-full">
                 <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-50 rounded-xl flex items-center justify-center overflow-hidden">
                   <img src={getProductImage(p)} alt={p.name} className="w-full h-full object-contain p-2" />
                 </div>
 
-                <div className="flex-1">
-                  <div className="text-lg sm:text-xl font-semibold text-black">{p.name}</div>
-                  <div className="text-sm text-gray-500">Max: {p.maxSelectableQty ?? 0}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[clamp(12px,1.8vh,20px)] font-semibold text-black leading-tight line-clamp-2">{p.name}</div>
+                  <div className="text-[clamp(10px,1.4vh,16px)] text-gray-500">Max: {p.maxSelectableQty ?? 0}</div>
                 </div>
 
                 <div className="inline-flex items-center gap-3">
@@ -199,32 +289,16 @@ function ExtrasList({ products }: { products: Product[] }) {
             </div>
           ))}
           {products.length === 0 && <div className="text-gray-500">No extras</div>}
+          </div>
         </div>
       )}
     />
   );
 }
 
-function PaymentMethod({
-  paymentMethod,
-  setPaymentMethod,
-}: {
-  paymentMethod: "card" | "crypto";
-  setPaymentMethod: (m: "card" | "crypto") => void;
-}) {
-  return (
-    <div className="bg-white rounded-[20px] p-6 shadow-md border border-gray-100">
-      <div className="text-xl font-semibold mb-4">Payment method</div>
-      <div className="flex gap-3">
-        <Button variant={paymentMethod === "card" ? "default" : "secondary"} onClick={() => setPaymentMethod("card")}>
-          Card / Apple Pay / Google Pay
-        </Button>
-        <Button variant={paymentMethod === "crypto" ? "default" : "secondary"} onClick={() => setPaymentMethod("crypto")}>
-          Crypto
-        </Button>
-      </div>
-    </div>
-  );
-}
+/*
+  PaymentMethod component disabled for now (per request).
+  Keeping it commented for easy re-enable later.
+*/
 
 
