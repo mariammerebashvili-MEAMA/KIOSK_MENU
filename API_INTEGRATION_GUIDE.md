@@ -30,7 +30,7 @@ The kiosk application has been successfully integrated with the Azure-hosted MEA
 **Base URL:**
 ```
 https://vending-capsulo-cloud-g3b3g6bmbshcg8cp.westeurope-01.azurewebsites.net/vms/api/mobile/kiosk
-```
+```https://vending-capsulo-cloud-g3b3g6bmbshcg8cp.westeurope-01.azurewebsites.net/vms/api/mobile/kiosk/catalog/490674
 
 **Catalog Endpoint:**
 ```
