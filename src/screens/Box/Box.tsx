@@ -166,7 +166,7 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
                 value="sugar"
                 className="w-[200px] sm:w-[240px] md:w-[280px] lg:w-[320px] h-[56px] sm:h-[64px] md:h-[72px] px-8 py-4 rounded-[50px] data-[state=active]:bg-black data-[state=active]:text-white data-[state=inactive]:bg-[#f2f2f2] data-[state=inactive]:text-black [font-family:'Inter',Helvetica] font-normal text-base sm:text-lg md:text-xl transition-all"
               >
-                Sugar &amp; Cup
+                Sugar & Cup
               </TabsTrigger>
             </TabsList>
           </Tabs>
