@@ -2,6 +2,7 @@ import { Observer } from "mobx-react-lite";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useKiosk } from "../../contexts/KioskContext";
 import { kioskSelectionStore } from "../../stores/KioskSelectionStore";
+import { OrderDataFromKioskSelectionStore } from "../../components/OrderDataScript";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs";
@@ -44,6 +45,7 @@ export const KioskFlow = () => {
 
   return (
     <div className="flex flex-col h-screen w-full bg-white overflow-hidden">
+      <OrderDataFromKioskSelectionStore />
       <main className="flex-1 min-h-0 flex flex-col w-full overflow-hidden">
         <div className="w-full flex justify-center p-4 sm:p-5 md:p-6">
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as Tab)} className="w-auto">

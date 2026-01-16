@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "../../components/ui/tabs";
 import { Product, CapsuleType } from "../../lib/kioskApi";
+import { OrderDataScript, parsePriceString, type OrderItemData } from "../../components/OrderDataScript";
 
 // Default products for backward compatibility (non-kiosk mode)
 const defaultProducts: Product[] = [
@@ -150,8 +151,49 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
 
   const totalPrice = calculateTotal();
 
+  const orderItems = useMemo<OrderItemData[]>(() => {
+    const items: OrderItemData[] = [];
+
+    for (const p of products) {
+      const qty = quantities[p.id] ?? 0;
+      if (qty <= 0) continue;
+
+      const unit = parsePriceString(p.price);
+      const total = unit * qty;
+
+      items.push({
+        productId: p.id,
+        variantId: null,
+        quantity: qty,
+        total: Number(total.toFixed(2)),
+      });
+    }
+
+    // Box-mode extras don't have real backend IDs; include stable negative IDs so
+    // integrators can still detect them if needed.
+    if (cupCount > 0) {
+      items.push({
+        productId: -100,
+        variantId: null,
+        quantity: cupCount,
+        total: 0,
+      });
+    }
+    if (sugarCount > 0) {
+      items.push({
+        productId: -101,
+        variantId: null,
+        quantity: sugarCount,
+        total: 0,
+      });
+    }
+
+    return items;
+  }, [products, quantities, cupCount, sugarCount]);
+
   return (
     <div className="flex flex-col min-h-screen w-full bg-white portrait:aspect-[9/16] overflow-x-hidden">
+      <OrderDataScript orderData={{ items: orderItems }} />
       <main className="flex-1 flex flex-col w-full">
         <div className="w-full flex justify-center p-4 sm:p-5 md:p-6">
           <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "capsules" | "sugar")} className="w-auto">
