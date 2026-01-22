@@ -491,9 +491,9 @@ export const Box = ({ products = defaultProducts }: BoxProps): JSX.Element => {
             onClick={handleNext}
             className="w-36 sm:w-40 md:w-44 h-[64px] sm:h-[72px] md:h-[80px] px-10 py-5 bg-black rounded-[50px] hover:bg-black/90 transition-all hover:scale-105"
           >
-            <span className="[font-family:'Inter',Helvetica] font-medium text-white text-lg sm:text-xl md:text-2xl text-center tracking-[0] leading-[normal]">
+            {/* <span className="[font-family:'Inter',Helvetica] font-medium text-white text-lg sm:text-xl md:text-2xl text-center tracking-[0] leading-[normal]">
               Next
-            </span>
+            </span> */}
           </Button>
         </div>
       </footer>

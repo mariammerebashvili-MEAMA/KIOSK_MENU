@@ -96,8 +96,8 @@ export const KioskFlow = () => {
               </div>
             )}
           />
-          <Button className="w-[112px] h-[49px] rounded-[38px] px-0" onClick={next}>
-            Next
+          <Button id={activeTab === "extras" ? "next-extras" : "next-capsules"} className="w-[112px] h-[49px] rounded-[38px] px-0" onClick={next}>
+          {activeTab === "extras" ? "Buy" : "Next"}
           </Button>
         </div>
       </footer>
