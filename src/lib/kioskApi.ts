@@ -18,6 +18,15 @@ export interface Product {
   unitPrice?: number;
   imageUrl?: string;
   availableQuantity?: number;
+  /**
+   * Variant options returned by `/catalog-with-variants/{qrCode}`.
+   * We use the first variant id as `variantId` when building the order payload.
+   */
+  priceVariants?: Array<{
+    id: number | string;
+    title?: string | null;
+    amount?: number;
+  }>;
   productClassification?:
     | "AMERICAN_CAPSULE"
     | "EUROPEAN_CAPSULE"

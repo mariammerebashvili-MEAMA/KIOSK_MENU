@@ -4,7 +4,7 @@ import { kioskSelectionStore } from "../stores/KioskSelectionStore";
 
 export type OrderItemData = {
   productId: number;
-  variantId: null;
+  variantId: number | string | null;
   quantity: number;
   total: number;
 };
@@ -62,7 +62,8 @@ export const OrderDataFromKioskSelectionStore = () => {
 
             return {
               productId: p.id,
-              variantId: null,
+              // catalog-with-variants returns `priceVariants`; take the first one as default
+              variantId: p.priceVariants?.[0]?.id ?? null,
               quantity: p.selectedQty ?? 0,
               total: Number(total.toFixed(2)),
             };

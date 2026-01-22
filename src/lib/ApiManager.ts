@@ -57,14 +57,14 @@ class ApiManager {
 
   /**
    * Fetch catalog by QR code
-   * GET /catalog/{qrCode}
+   * GET /catalog-with-variants/{qrCode}
    */
   async fetchCatalog(qrCode: string): Promise<KioskCatalog> {
     try {
       console.log('🔍 Attempting to fetch catalog for QR code:', qrCode);
-      console.log('🔍 Full URL will be:', `${this.BASE_URL}/catalog/${qrCode}`);
+      console.log('🔍 Full URL will be:', `${this.BASE_URL}/catalog-with-variants/${qrCode}`);
       
-      const response = await this.axiosInstance.get<any>(`/catalog/${qrCode}`);
+      const response = await this.axiosInstance.get<any>(`/catalog-with-variants/${qrCode}`);
       
       console.log('📦 Raw API Response:', response.data);
       console.log('📦 Response Type:', typeof response.data);
