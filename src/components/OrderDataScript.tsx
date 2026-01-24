@@ -56,18 +56,31 @@ export const OrderDataFromKioskSelectionStore = () => {
         ];
 
         const items: OrderItemData[] = allProducts
-          .filter((p) => (p.selectedQty ?? 0) > 0)
           .map((p) => {
-            const total = getUnitPrice(p).mul(p.selectedQty ?? 0);
+            let quantity = p.selectedQty ?? 0;
+
+            // Backend often requires cups to be explicitly included.
+            // If user didn't select cups, default to the computed maxSelectableQty (1 cup per capsule, etc.).
+            const classification = (p as any).productClassification as string | undefined;
+            const maxSelectableQty = (p as any).maxSelectableQty as number | undefined;
+            const isCup = classification === "AMERICAN_CUP" || classification === "EUROPEAN_CUP";
+
+            if (isCup && quantity === 0 && (maxSelectableQty ?? 0) > 0) {
+              quantity = maxSelectableQty ?? 0;
+            }
+
+            const total = getUnitPrice(p).mul(quantity);
 
             return {
               productId: p.id,
               // catalog-with-variants returns `priceVariants`; take the first one as default
               variantId: p.priceVariants?.[0]?.id ?? null,
-              quantity: p.selectedQty ?? 0,
+              quantity,
               total: Number(total.toFixed(2)),
             };
-          });
+          })
+          // Keep payload small: omit 0-qty lines (except cups will be auto-defaulted above)
+          .filter((i) => i.quantity > 0);
 
         return <OrderDataScript orderData={{ items }} />;
       }}
