@@ -12,114 +12,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <style>
-      @import url("https://fonts.googleapis.com/css?family=Inter:400,500,600,700|ABeeZee:400|Albert+Sans:400,600,700");
-      
-      /* Kiosk optimized styles for 1080x1920 PORTRAIT */
-      * {
-        box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
-      }
-      
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow-x: hidden;
-      }
-      
-      body {
-        background: #ffffff;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      }
-      
-      #app {
-        width: 100%;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        background: #f5f5f5;
-      }
-      
-      /* Optimize for 1080x1920 portrait kiosk displays */
-      @media (orientation: portrait) {
-        #app {
-          background: #f5f5f5;
-        }
-      }
-      
-      @media (min-width: 1080px) and (min-height: 1920px) and (orientation: portrait) {
-        #app {
-          background: #e5e5e5;
-        }
-      }
-      
-      /* Landscape orientation warning */
-      @media (orientation: landscape) {
-        #landscape-warning {
-          display: flex !important;
-        }
-        #app > *:not(#landscape-warning) {
-          display: none !important;
-        }
-      }
-      
-      #landscape-warning {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: #000000;
-        color: #ffffff;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        text-align: center;
-        padding: 40px;
-      }
-      
-      #landscape-warning svg {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 30px;
-        animation: rotate 2s ease-in-out infinite;
-      }
-      
-      @keyframes rotate {
-        0%, 100% { transform: rotate(0deg); }
-        50% { transform: rotate(90deg); }
-      }
-      
-      #landscape-warning h1 {
-        font-size: 32px;
-        margin: 0 0 20px 0;
-        font-weight: 600;
-      }
-      
-      #landscape-warning p {
-        font-size: 18px;
-        margin: 0;
-        opacity: 0.8;
-      }
-      
-      /* Touch-friendly button sizing */
-      button, a {
-        touch-action: manipulation;
-        -webkit-touch-callout: none;
-      }
-      
-      /* Force portrait aspect ratio */
-      @supports (aspect-ratio: 9 / 16) {
-        #app > div {
-          aspect-ratio: 9 / 16;
-        }
-      }
-    </style>
+    <!-- Fonts (use <link> instead of CSS @import to avoid Vite inline CSS proxy issues) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:400,500,600,700|ABeeZee:400|Albert+Sans:400,600,700"
+      rel="stylesheet"
+    />
+    <link href="./src/styles/kiosk-shell.css" rel="stylesheet" />
     <link href="tailwind.css" rel="stylesheet" />
     <link href="./src/styles/kiosk-responsive.css" rel="stylesheet" />
   </head>

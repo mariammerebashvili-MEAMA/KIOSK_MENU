@@ -13,6 +13,7 @@ type Tab = "capsules" | "extras";
 export const KioskFlow = () => {
   const { catalog, products, additionalProducts, qrCode } = useKiosk();
   const [activeTab, setActiveTab] = useState<Tab>("capsules");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // Payment part disabled for now (per request)
   // const [paymentMethod, setPaymentMethod] = useState<"card" | "crypto">("card");
 
@@ -23,29 +24,44 @@ export const KioskFlow = () => {
   const hasAdditional = useMemo(() => (additionalProducts?.length ?? 0) > 0, [additionalProducts]);
 
   const next = () => {
+    if (isSubmitting) return;
+
     if (activeTab === "capsules") {
-      if (hasAdditional && kioskSelectionStore.totalSelectedProductQty > 0) setActiveTab("extras");
-      else {
-        // Payment part disabled for now (per request)
-        console.log("Selection complete:", {
-          selectedProducts: kioskSelectionStore.selectedData,
-          total: kioskSelectionStore.totalPrice.toString(),
-        });
-        alert("Selection complete (payment disabled).");
+      if (hasAdditional && kioskSelectionStore.totalSelectedProductQty > 0) {
+        setActiveTab("extras");
+        return;
       }
+
+      // No extras step → treat as final "Buy"
+      setIsSubmitting(true);
+      return;
     } else if (activeTab === "extras") {
-      // Payment part disabled for now (per request)
-      console.log("Selection complete:", {
-        selectedProducts: kioskSelectionStore.selectedData,
-        total: kioskSelectionStore.totalPrice.toString(),
-      });
-      alert("Selection complete (payment disabled).");
+      // Buy action: show loader until backend refreshes/reloads the page.
+      setIsSubmitting(true);
+      return;
     }
   };
+
+  const isLastStep = activeTab === "extras" || !hasAdditional;
 
   return (
     <div className="flex flex-col h-screen w-full bg-white overflow-hidden">
       <OrderDataFromKioskSelectionStore />
+
+      {isSubmitting && (
+        <div className="fixed inset-0 z-50 bg-white/90 backdrop-blur-sm flex items-center justify-center">
+          <div className="text-center px-8">
+            <div className="flex justify-center mb-6">
+              <div className="w-16 h-16 border-4 border-gray-200 border-t-black rounded-full animate-spin" />
+            </div>
+            <h2 className="text-xl sm:text-2xl font-normal text-gray-800 [font-family:'Meama Sans LGV',Helvetica]">
+              Working with terminal
+            </h2>
+            
+          </div>
+        </div>
+      )}
+
       <main className="flex-1 min-h-0 flex flex-col w-full overflow-hidden">
         <div className="w-full flex justify-center p-4 sm:p-5 md:p-6">
           <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as Tab)} className="w-auto">
@@ -87,7 +103,7 @@ export const KioskFlow = () => {
       </main>
 
       <footer className="flex-none w-full bg-white border-t border-gray-100 p-3 sm:p-4 md:p-5 shadow-[0_-8px_24px_rgba(0,0,0,0.06)]">
-        <div className="max-w-[1080px] mx-auto flex items-center justify-between gap-4">
+        <div className="max-w-[1080px] mx-auto flex items-center justify-between gap-4 pr-[50px]">
           <Observer
             render={() => (
               <div className="text-black">
@@ -97,7 +113,7 @@ export const KioskFlow = () => {
             )}
           />
           <Button id={activeTab === "extras" ? "next-extras" : "next-capsules"} className="w-[112px] h-[49px] rounded-[38px] px-0" onClick={next}>
-          {activeTab === "extras" ? "Buy" : "Next"}
+          {isLastStep ? "Buy" : "Next"}
           </Button>
         </div>
       </footer>
